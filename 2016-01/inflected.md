@@ -14,6 +14,12 @@ rails g scaffold user name:string password:string
 
 inflected便是做这个的库，他是[rails基础ActiveSupport](https://ihower.tw/rails4/activesupport.html)的nodejs版本。支持对单词的各种变化处理。
 
+主要特性
+
+- 单数和复数转换
+- 驼峰，下划线，减号等转换
+- 对数据库表，主键等支持
+- 还有其他特性，如人性化、翻译等
 
 ## 源码
 
