@@ -1,5 +1,15 @@
 # 开源Nodejs项目推荐gulp核心模块：Orchestrator
 
+## Content
+
+- 为什么要介绍这个模块？
+- 简介和基本用法
+- 它是如何做到以最大并发执行的?
+- 作业依赖链是如何计算的？
+- 事件回调
+- 如何实现一个简易gulp？
+- 最后点评一下
+
 ## Why？
 
 gulp已经是nodejs用的最多，排名前10的著名模块了，而Orchestrator模块是gulp的核心模块，如果你也是gulp使用者，那么你有必要了解一下gulp的实现原理，以及为什么它比较快
@@ -169,6 +179,67 @@ js的数组`[]`是非常灵活的数据结构，它既可以队列也可以栈�
 
 源码见 https://github.com/robrich/sequencify
 
+
+## 事件回调
+
+```
+var events = ['start','stop','err','task_start','task_stop','task_err','task_not_found','task_recursion'];
+```
+
+具体实现
+
+```
+var Orchestrator = function () {
+	EventEmitter.call(this);
+  
+  // call this when all tasks in the queue are done
+	this.doneCallback = undefined; 
+  
+  // the order to run the tasks
+	this.seq = []; 
+  
+  // task objects: name, dep (list of names of dependencies), fn (the task to run)
+	this.tasks = {}; 
+  
+  // is the orchestrator running tasks? .start() to start, .stop() to stop
+	this.isRunning = false; 
+};
+```
+
+看这句
+
+```
+EventEmitter.call(this);
+```
+
+此处比较简单，在nodejs这样是非常常见的处理方式。此处不细讲了，需要注意的是onAll的实现
+
+```
+// FRAGILE: ASSUME: this list is an exhaustive list of events emitted
+var events = ['start','stop','err','task_start','task_stop','task_err','task_not_found','task_recursion'];
+
+var listenToEvent = function (target, event, callback) {
+	target.on(event, function (e) {
+		e.src = event;
+		callback(e);
+	});
+};
+
+Orchestrator.prototype.onAll = function (callback) {
+	var i;
+	if (typeof callback !== 'function') {
+		throw new Error('No callback specified');
+	}
+
+	for (i = 0; i < events.length; i++) {
+		listenToEvent(this, events[i], callback);
+	}
+};
+```
+
+- listenToEvent是监听某一个事件
+- onAll是不管events里的那个就监听
+
 ## 如何实现一个简易gulp？
 
 ```
@@ -277,9 +348,11 @@ end
 
 ## 点评
 
-- 另外api还有关于promise和stream的支持，测试用例非常丰富
+- 代码不多，但东西比较多
+- 另外api还有关于event，promise和stream等的支持，
 - 遵循node的小而美哲学
-- 文档，测试mocha+should，代码都比较规范
+- 测试mocha+should测试用例非常丰富，
+- 文档，代码都比较规范
 
 在某些依赖key:function的场景下，Orchestrator是一个非常的选择。另外以最大并发跑task的特性也是大的实用场景。
 
