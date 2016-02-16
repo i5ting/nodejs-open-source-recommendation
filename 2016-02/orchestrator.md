@@ -346,6 +346,8 @@ end
 
 ```
 
+代码：https://github.com/i5ting/nodejs-open-source-recommendation/tree/master/examples/mygulp
+
 ## 点评
 
 - 代码不多，但东西比较多
@@ -361,7 +363,7 @@ end
 
 欢迎关注我的公众号【node全栈】
 
-![node全栈.png](//dn-cnode.qbox.me/FtALxsauUkYDGdzcuA5y6BaIdUMC)
+![node全栈.png](https://github.com/i5ting/nodejs-open-source-recommendation/raw/master/img/wechat.png)
 
 
 如果想参与评论，请点击原文链接，进入国内最专业的cnode论坛
