@@ -273,7 +273,7 @@ module.exports = orchestrator;
 
 ```
   #!/usr/bin/env node
-
+  // var argv = process.argv.slice(2, process.argv.length)
   var argv = process.argv;
   argv.shift();
   argv.shift();
@@ -351,9 +351,9 @@ end
 ## 点评
 
 - 代码不多，但东西比较多
-- 另外api还有关于event，promise和stream等的支持，
+- 另外api还有关于event，promise和stream等的支持
 - 遵循node的小而美哲学
-- 测试mocha+should测试用例非常丰富，
+- 测试mocha+should测试用例非常丰富
 - 文档，代码都比较规范
 
 在某些依赖key:function的场景下，Orchestrator是一个非常的选择。另外以最大并发跑task的特性也是大的实用场景。

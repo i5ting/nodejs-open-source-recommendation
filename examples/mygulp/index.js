@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 
-var argv = process.argv;
-argv.shift();
-argv.shift();
+var argv = process.argv.slice(2, process.argv.length)
 
 console.log(argv + '\n');
 
