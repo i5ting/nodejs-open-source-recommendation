@@ -16,7 +16,7 @@
 
 ## 欢迎关注我的公众号【node全栈】
 
-![node全栈.png](//dn-cnode.qbox.me/FtALxsauUkYDGdzcuA5y6BaIdUMC)
+![node全栈.png](img/wechat.png)
 
 
 如果想参与评论，请进入国内最专业的cnode论坛
